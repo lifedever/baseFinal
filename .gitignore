@@ -17,3 +17,5 @@ webapp/upload
 
 logs
 target
+.idea
+*.iml
