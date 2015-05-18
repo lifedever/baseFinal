@@ -40,6 +40,12 @@
             <version>1.4.7</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.github.gefangshuai</groupId>
+            <artifactId>wincn-commons</artifactId>
+            <type>pom</type>
+            <version>1.1</version>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -47,6 +53,7 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <repositories>

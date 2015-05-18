@@ -16,7 +16,9 @@ import java.util.Properties;
  * Created by fangshuai on 2015-03-17-0017.
  */
 public class AppConfig  extends JFinalConfig {
-    private Properties appProperties;   // properties 配置文件
+    private Properties dbProperties;   // properties 配置文件
+    private Properties configProperties;
+
     /**
      * 工程配置信息
      * @param me
@@ -24,7 +26,8 @@ public class AppConfig  extends JFinalConfig {
     @Override
     public void configConstant(Constants me) {
         // 加载properties文件
-        appProperties = loadPropertyFile("app.properties");
+        dbProperties = loadPropertyFile("db.properties");
+        configProperties = loadPropertyFile("config.properties");
 
         //设置视图jsp
         me.setViewType(ViewType.JSP);
@@ -66,7 +69,12 @@ public class AppConfig  extends JFinalConfig {
     @Override
     public void configPlugin(Plugins me) {
         // 添加数据库连接池
-        DruidPlugin dPlugin = new DruidPlugin(appProperties.getProperty("jdbc.url"), appProperties.getProperty("jdbc.username"), appProperties.getProperty("jdbc.password"), appProperties.getProperty("jdbc.driver"));
+        DruidPlugin dPlugin = new DruidPlugin(
+                dbProperties.getProperty("jdbc.url"),
+                dbProperties.getProperty("jdbc.username"),
+                dbProperties.getProperty("jdbc.password"),
+                dbProperties.getProperty("jdbc.driver")
+        );
         dPlugin.addFilter(new StatFilter());
 
         dPlugin.setTestWhileIdle(true);
@@ -83,8 +91,6 @@ public class AppConfig  extends JFinalConfig {
         autoTableBindPlugin.setDialect(new MysqlDialect());
         autoTableBindPlugin.setShowSql(true);
         me.add(autoTableBindPlugin);
-
-        // 添加菜单扫描的插件
     }
 
     /**
