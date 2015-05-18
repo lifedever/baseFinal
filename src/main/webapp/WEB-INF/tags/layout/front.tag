@@ -10,19 +10,26 @@
     <title>测试项目</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name=“robots” CONTENT="INDEX,FOLLOW">
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
     <common:css></common:css>
     <jsp:invoke fragment="css"/>
+    <script>
+        ctx = '${ctx}';
+        var success = '${flash_success}';
+        var warning = '${flash_warning}';
+        var info = '${flash_info}';
+        var error = '${flash_error}';
+    </script>
 </head>
 <body>
-    <layout:header menu="${menu}"/>
-    <jsp:invoke fragment="main"/>
-    <common:js></common:js>
-    <script type="text/javascript">
+<layout:header menu="${menu}"/>
+<jsp:invoke fragment="main"/>
+<common:js></common:js>
+<script type="text/javascript">
 
-    </script>
+</script>
 
-    <jsp:invoke fragment="js"/>
+<jsp:invoke fragment="js"/>
 </body>
 </html>
