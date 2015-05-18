@@ -4,11 +4,14 @@ import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.util.JdbcConstants;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.*;
+import com.jfinal.ext.plugin.shiro.ShiroInterceptor;
+import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.ext.plugin.tablebind.AutoTableBindPlugin;
 import com.jfinal.ext.route.AutoBindRoutes;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.render.ViewType;
+import io.github.eternalpro.shiro.MyJdbcAuthzService;
 
 import java.util.Properties;
 
@@ -18,7 +21,7 @@ import java.util.Properties;
 public class AppConfig  extends JFinalConfig {
     private Properties dbProperties;   // properties 配置文件
     private Properties configProperties;
-
+    private Routes routes;
     /**
      * 工程配置信息
      * @param me
@@ -47,7 +50,6 @@ public class AppConfig  extends JFinalConfig {
 
         // 开启debug模式
         me.setDevMode(true);
-
         me.setMaxPostSize(1024 * 1024 * 1024);  // 1GB
     }
 
@@ -60,6 +62,7 @@ public class AppConfig  extends JFinalConfig {
         // 开启注解模式
         AutoBindRoutes routes = new AutoBindRoutes();
         me.add(routes);
+        this.routes = me;
     }
 
     /**
@@ -91,6 +94,11 @@ public class AppConfig  extends JFinalConfig {
         autoTableBindPlugin.setDialect(new MysqlDialect());
         autoTableBindPlugin.setShowSql(true);
         me.add(autoTableBindPlugin);
+
+        //shiro权限框架，添加到plugin
+        ShiroPlugin shiroPlugin = new ShiroPlugin(this.routes);
+        me.add(shiroPlugin);
+
     }
 
     /**
@@ -102,6 +110,9 @@ public class AppConfig  extends JFinalConfig {
         me.add(new AdminInterceptor());
         me.add(new FlashMessageInterceptor());
         me.add(new GlobalInterceptor());
+
+        //添加shiro的过滤器到interceptor
+        me.add(new ShiroInterceptor());
     }
 
     @Override

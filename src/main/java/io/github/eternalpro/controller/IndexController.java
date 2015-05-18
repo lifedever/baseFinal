@@ -12,4 +12,5 @@ public class IndexController extends Controller{
     public void index(){
         FlashMessageUtils.setSuccessMessage(this, "项目启动！");
     }
+
 }
