@@ -21,8 +21,8 @@ public class GlobalInterceptor implements Interceptor {
      * @param ai
      */
     private void shiroRedirectToLogin(ActionInvocation ai) {
-        if (ai.getController().getPara() != null && ai.getController().getPara().startsWith("login;JSESSIONID=")) {
-            ai.getController().redirect("/login");
+        if (ai.getController().getPara() != null && ai.getController().getPara().startsWith("signin;JSESSIONID=")) {
+            ai.getController().redirect("/signin");
         }
     }
 }

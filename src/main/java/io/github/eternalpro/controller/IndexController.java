@@ -2,9 +2,7 @@ package io.github.eternalpro.controller;
 
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
-import io.github.eternalpro.core.FlashMessage;
 import io.github.eternalpro.core.FlashMessageUtils;
-import io.github.eternalpro.utils.LogUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -20,35 +18,42 @@ public class IndexController extends Controller {
         FlashMessageUtils.setSuccessMessage(this, "项目启动！");
     }
 
-    public void login() {
+    public void signin() {
 
     }
 
     public void checkLogin() {
         String username = getPara("username");
         String password = getPara("password");
+        Boolean rememberMe = getParaToBoolean("rememberMe", false);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        token.setRememberMe(rememberMe);
         Subject subject = SecurityUtils.getSubject();
+
         try {
             subject.login(token);
             FlashMessageUtils.setSuccessMessage(this, "登录成功，欢迎！");
             redirect("/");
         } catch (UnknownAccountException e) {
             FlashMessageUtils.setErrorMessage(this, e.getMessage());
-            redirect("/login");
+            redirect("/signin");
         } catch (IncorrectCredentialsException e) {
             FlashMessageUtils.setErrorMessage(this, e.getMessage());
-            redirect("/login");
+            redirect("/signin");
         } catch (LockedAccountException e) {
             FlashMessageUtils.setErrorMessage(this, e.getMessage());
-            redirect("/login");
+            redirect("/signin");
         } catch (ExcessiveAttemptsException e) {
             FlashMessageUtils.setErrorMessage(this, e.getMessage());
-            redirect("/login");
+            redirect("/signin");
         } catch (AuthenticationException e) {
             FlashMessageUtils.setErrorMessage(this, e.getMessage());
-            redirect("/login");
+            redirect("/signin");
         }
     }
 
+    public void logout(){
+        SecurityUtils.getSubject().logout();
+        FlashMessageUtils.setSuccessMessage(this, "退出成功！");
+    }
 }

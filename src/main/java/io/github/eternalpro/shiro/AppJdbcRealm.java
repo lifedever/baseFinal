@@ -1,12 +1,10 @@
 package io.github.eternalpro.shiro;
 
 import cn.dreampie.shiro.core.SubjectKit;
-import com.jfinal.kit.EncryptionKit;
 import io.github.eternalpro.model.Permission;
 import io.github.eternalpro.model.Role;
 import io.github.eternalpro.model.User;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authc.credential.PasswordService;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -21,10 +19,6 @@ import java.util.Set;
 
 public class AppJdbcRealm extends AuthorizingRealm {
 
-    private PasswordService passwordService;
-    public void setPasswordService(PasswordService passwordService) {
-        this.passwordService = passwordService;
-    }
     /**
      * 登录认证
      *

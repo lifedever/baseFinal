@@ -2,7 +2,6 @@ package io.github.eternalpro.core;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpSession;
  * Created by gefangshuai on 2015-03-22-0022.
  */
 public class FlashMessageInterceptor implements Interceptor {
-    private static Logger logger = Logger.getLogger(FlashMessageInterceptor.class);
     @Override
     public void intercept(ActionInvocation ai) {
         HttpSession session = ai.getController().getSession();
@@ -24,11 +22,6 @@ public class FlashMessageInterceptor implements Interceptor {
         ai.getController().setAttr(FlashMessage.FLASH_WARNING, flash_warnging_message);
         ai.getController().setAttr(FlashMessage.FLASH_INFO, flash_info_message);
         ai.getController().setAttr(FlashMessage.FLASH_ERROR, flash_error_message);
-
-//        logger.debug(flash_success_message);
-//        logger.debug(flash_warnging_message);
-//        logger.debug(flash_info_message);
-//        logger.debug(flash_error_message);
 
         FlashMessageUtils.clearAll(session);
         ai.invoke();

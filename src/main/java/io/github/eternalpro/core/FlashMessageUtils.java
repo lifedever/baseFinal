@@ -41,6 +41,7 @@ public class FlashMessageUtils {
      * 创建flash消息 通常用在@ClearInterceptor(ClearLayer.ALL)中
      * @param controller
      */
+    @Deprecated
     public static void createFlash(Controller controller){
         String flash_success_message = (String) controller.getSession().getAttribute(FlashMessage.FLASH_SUCCESS);
         String flash_warnging_message = (String) controller.getSession().getAttribute(FlashMessage.FLASH_WARNING);

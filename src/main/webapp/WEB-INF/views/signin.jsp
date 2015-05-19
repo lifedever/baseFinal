@@ -19,7 +19,7 @@
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="rememberMe"> remember me
+                            <input type="checkbox" name="rememberMe" value="true"> remember me
                         </label>
                     </div>
                     <button type="submit" class="btn btn-default">登录</button>
