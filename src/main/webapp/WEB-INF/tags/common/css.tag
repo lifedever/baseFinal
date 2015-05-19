@@ -8,5 +8,6 @@
 
 <link rel="stylesheet" href="${ctx}/resources/css/bootstrap.css"/>
 <link rel="stylesheet" href="${ctx}/resources/css/toastr.css"/>
+<link rel="stylesheet" href="${ctx}/resources/css/core.css"/>
 <link rel="stylesheet" href="${ctx}/resources/css/app.css"/>
 

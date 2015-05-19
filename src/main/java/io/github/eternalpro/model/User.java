@@ -11,7 +11,7 @@ public class User extends Model<User> {
     public static User dao = new User();
 
     public User findByUsername(String loginName) {
-        return null;
+        return dao.findFirst("select * from sec_user t where t.username = ?", loginName);
     }
 
     public User findByMobile(String username) {
