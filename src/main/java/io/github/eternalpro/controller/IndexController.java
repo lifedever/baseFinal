@@ -6,6 +6,8 @@ import io.github.eternalpro.core.FlashMessageUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 
 
 /**
@@ -15,7 +17,6 @@ import org.apache.shiro.subject.Subject;
 public class IndexController extends Controller {
 
     public void index() {
-        FlashMessageUtils.setSuccessMessage(this, "项目启动！");
     }
 
     public void signin() {
@@ -32,8 +33,11 @@ public class IndexController extends Controller {
 
         try {
             subject.login(token);
-            FlashMessageUtils.setSuccessMessage(this, "登录成功，欢迎！");
-            redirect("/");
+            SavedRequest savedRequest = WebUtils.getSavedRequest(getRequest());
+            if(savedRequest != null)
+                redirect(savedRequest.getRequestUrl());
+            else
+                redirect("/");
         } catch (UnknownAccountException e) {
             FlashMessageUtils.setErrorMessage(this, e.getMessage());
             redirect("/signin");

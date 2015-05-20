@@ -1,7 +1,9 @@
-package io.github.eternalpro.core;
+package io.github.eternalpro.interceptor;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
+import io.github.eternalpro.core.FlashMessage;
+import io.github.eternalpro.core.FlashMessageUtils;
 
 import javax.servlet.http.HttpSession;
 

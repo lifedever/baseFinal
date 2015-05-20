@@ -5,7 +5,6 @@ import io.github.eternalpro.model.Permission;
 import io.github.eternalpro.model.Role;
 import io.github.eternalpro.model.User;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authc.credential.PasswordService;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.Cache;
@@ -33,9 +32,8 @@ public class AppJdbcRealm extends AuthorizingRealm {
         if (user != null) {
             SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getStr("password"), getName());
             return info;
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -47,17 +45,16 @@ public class AppJdbcRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String loginName = ((User) principals.fromRealm(getName()).iterator().next()).get("username");
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        Set<String> roleSet = new LinkedHashSet<String>(); // 角色集合
-        Set<String> permissionSet = new LinkedHashSet<String>();  // 权限集合
+        Set<String> roleSet = new LinkedHashSet<>(); // 角色集合
+        Set<String> permissionSet = new LinkedHashSet<>();  // 权限集合
         List<Role> roles = null;
         User user = User.dao.findByUsername(loginName);
         if (user != null) {
-            //遍历角色
+            // 遍历角色
             roles = Role.dao.findByUser(user.getLong("id"));
         } else {
             SubjectKit.getSubject().logout();
         }
-
         loadRole(roleSet, permissionSet, roles);
         info.setRoles(roleSet); // 设置角色
         info.setStringPermissions(permissionSet); // 设置权限

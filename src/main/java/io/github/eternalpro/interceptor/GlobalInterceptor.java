@@ -1,4 +1,4 @@
-package io.github.eternalpro.core;
+package io.github.eternalpro.interceptor;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;

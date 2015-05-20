@@ -37,22 +37,4 @@ public class FlashMessageUtils {
         session.removeAttribute(FlashMessage.FLASH_ERROR);
     }
 
-    /**
-     * 创建flash消息 通常用在@ClearInterceptor(ClearLayer.ALL)中
-     * @param controller
-     */
-    @Deprecated
-    public static void createFlash(Controller controller){
-        String flash_success_message = (String) controller.getSession().getAttribute(FlashMessage.FLASH_SUCCESS);
-        String flash_warnging_message = (String) controller.getSession().getAttribute(FlashMessage.FLASH_WARNING);
-        String flash_info_message = (String) controller.getSession().getAttribute(FlashMessage.FLASH_INFO);
-        String flash_error_message = (String) controller.getSession().getAttribute(FlashMessage.FLASH_ERROR);
-
-        controller.setAttr(FlashMessage.FLASH_SUCCESS, flash_success_message);
-        controller.setAttr(FlashMessage.FLASH_WARNING, flash_warnging_message);
-        controller.setAttr(FlashMessage.FLASH_INFO, flash_info_message);
-        controller.setAttr(FlashMessage.FLASH_ERROR, flash_error_message);
-
-        FlashMessageUtils.clearAll(controller.getSession());
-    }
 }

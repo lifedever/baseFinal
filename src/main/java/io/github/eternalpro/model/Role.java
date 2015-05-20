@@ -16,7 +16,7 @@ public class Role extends Model<Role>{
         return dao.find("select * from sec_role");
     }
 
-    public List<Role> findByUser(Long id) {
-        return null;
+    public List<Role> findByUser(Long userId) {
+        return dao.find("select * from sec_role r where r.id in (select role_id from sec_user_role where user_id = ?)", userId);
     }
 }

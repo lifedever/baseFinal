@@ -11,6 +11,9 @@ import com.jfinal.ext.route.AutoBindRoutes;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.render.ViewType;
+import io.github.eternalpro.interceptor.AdminInterceptor;
+import io.github.eternalpro.interceptor.FlashMessageInterceptor;
+import io.github.eternalpro.interceptor.GlobalInterceptor;
 
 import java.util.Properties;
 

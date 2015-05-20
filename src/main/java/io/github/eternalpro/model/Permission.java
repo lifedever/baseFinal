@@ -12,7 +12,7 @@ import java.util.List;
 public class Permission extends Model<Permission> {
     public static Permission dao = new Permission();
 
-    public List<Permission> findByRole(Long id) {
-        return null;
+    public List<Permission> findByRole(Long roleId) {
+        return dao.find("select * from sec_permission t where t.id in (select permission_id from sec_role_permission where role_id = ?)", roleId);
     }
 }
