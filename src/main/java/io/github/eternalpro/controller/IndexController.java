@@ -54,6 +54,7 @@ public class IndexController extends Controller {
 
     public void logout(){
         SecurityUtils.getSubject().logout();
-        FlashMessageUtils.setSuccessMessage(this, "退出成功！");
+        redirect("/signin");
+        //FlashMessageUtils.setSuccessMessage(this, "退出成功！");
     }
 }
