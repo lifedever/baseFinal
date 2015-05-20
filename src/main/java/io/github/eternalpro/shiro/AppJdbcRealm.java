@@ -30,7 +30,10 @@ public class AppJdbcRealm extends AuthorizingRealm {
         String username = userToken.getUsername();
         User user = User.dao.findByUsername(username);
         if (user != null) {
-            SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getStr("password"), getName());
+            ShiroUser shiroUser = new ShiroUser();
+            shiroUser.setUsername(user.getStr("username"));
+            shiroUser.setRealname(user.getStr("realname"));
+            SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(shiroUser, user.getStr("password"), getName());
             return info;
         }
         return null;
@@ -43,7 +46,8 @@ public class AppJdbcRealm extends AuthorizingRealm {
      * @return
      */
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String loginName = ((User) principals.fromRealm(getName()).iterator().next()).get("username");
+        ShiroUser shiroUser = ((ShiroUser)principals.asList().get(0));
+        String loginName = shiroUser.getUsername();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         Set<String> roleSet = new LinkedHashSet<>(); // 角色集合
         Set<String> permissionSet = new LinkedHashSet<>();  // 权限集合
@@ -52,6 +56,7 @@ public class AppJdbcRealm extends AuthorizingRealm {
         if (user != null) {
             // 遍历角色
             roles = Role.dao.findByUser(user.getLong("id"));
+            shiroUser.setUrl(roles.get(0).getStr("url"));
         } else {
             SubjectKit.getSubject().logout();
         }

@@ -60,12 +60,12 @@
         </dependency>
 
 
+
         <dependency>
             <groupId>cn.dreampie</groupId>
-            <artifactId>jfinal-shiro</artifactId>
-            <version>0.2</version>
+            <artifactId>jfinal-dreampie</artifactId>
+            <version>1.2</version>
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

@@ -1,7 +1,7 @@
 package io.github.eternalpro.model;
 
+import cn.dreampie.web.model.Model;
 import com.jfinal.ext.plugin.tablebind.TableBind;
-import com.jfinal.plugin.activerecord.Model;
 
 /**
  * Created by gefangshuai on 2015-05-18-0018.
@@ -17,4 +17,6 @@ public class User extends Model<User> {
     public User findByMobile(String username) {
         return null;
     }
+
+
 }
